@@ -20,7 +20,15 @@ public class Cliente extends Pessoa{
     private static final long serialVersionUID = 1L;
 
     @OneToMany(mappedBy = "cliente")
-    private List<Chamados> chamados = new ArrayList<>();
+    private List<Chamado> chamados = new ArrayList<>();
+
+    public Cliente(Long id, String nome, String cpf, String email, String senha){
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.senha = senha;
+    }
 
     public Cliente(Long id, String nome, @CPF String cpf, @Email String email, String senha, Set<Integer> perfis, LocalDate dataCadastro) {
         super(id, nome, cpf, email, senha, perfis, dataCadastro);
