@@ -1,2 +1,24 @@
-package com.jhonatan.helpdesk.resources;public class TecnicoResources {
+package com.jhonatan.helpdesk.resources;
+
+import com.jhonatan.helpdesk.domain.Tecnico;
+import com.jhonatan.helpdesk.services.TecnicoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(value = "/tecnico")
+public class TecnicoResources {
+
+    @Autowired
+    private TecnicoService tecnicoService;
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Tecnico> findById(@PathVariable Long id){
+        Tecnico obj = tecnicoService.findById(id);
+        return ResponseEntity.ok().body(obj);
+    }
 }
