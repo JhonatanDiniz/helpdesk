@@ -1,6 +1,7 @@
 package com.jhonatan.helpdesk.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jhonatan.helpdesk.domain.dtos.TecnicoDTO;
 import com.jhonatan.helpdesk.domain.enums.Perfil;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -30,6 +31,16 @@ public class Tecnico extends Pessoa{
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
+        this.perfis.add(Perfil.TECNICO.getCode());
+    }
+
+    public Tecnico(TecnicoDTO obj){
+        this.id = obj.getId();
+        this.nome = obj.getNome();
+        this.cpf = obj.getCpf();
+        this.email = obj.getEmail();
+        this.senha = obj.getSenha();
+        this.perfis.add(Perfil.TECNICO.getCode());
     }
 
     public Tecnico(Long id, String nome, @CPF String cpf, @Email String email, String senha, Set<Integer> perfis, LocalDate dataCadastro) {
