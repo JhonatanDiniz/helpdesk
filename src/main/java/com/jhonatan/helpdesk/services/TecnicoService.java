@@ -44,6 +44,15 @@ public class TecnicoService {
         obj = new Tecnico(objDto);
         return tecnicoRepository.save(obj);
     }
+
+    public void deleteById(Long id){
+        Tecnico obj = findById(id);
+        if(obj.getChamados().size() > 0){
+           throw  new DataIntegrityViolationException("Técnico possui chamados e não pode ser excluído!");
+        }
+        tecnicoRepository.deleteById(id);
+    }
+
     private void validaCpfEEmail(TecnicoDTO objDto) {
         Optional<Pessoa> obj = pessoaRepository.findByCpf(objDto.getCpf());
         if(obj.isPresent() && obj.get().getId() != objDto.getId()){
