@@ -3,13 +3,13 @@ package com.jhonatan.helpdesk.resources;
 import com.jhonatan.helpdesk.domain.Cliente;
 import com.jhonatan.helpdesk.domain.dtos.ClienteDTO;
 import com.jhonatan.helpdesk.services.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,5 +31,12 @@ public class ClienteResource {
     public ResponseEntity<ClienteDTO> findById(@PathVariable Long id){
         Cliente obj = clienteService.findById(id);
         return ResponseEntity.ok().body(new ClienteDTO(obj));
+    }
+
+    @PostMapping
+    public ResponseEntity<ClienteDTO> create(@Valid @RequestBody ClienteDTO objDto){
+        Cliente obj = clienteService.create(objDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).body(new ClienteDTO(obj));
     }
 }

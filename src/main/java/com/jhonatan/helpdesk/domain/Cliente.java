@@ -1,6 +1,7 @@
 package com.jhonatan.helpdesk.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jhonatan.helpdesk.domain.dtos.ClienteDTO;
 import com.jhonatan.helpdesk.domain.enums.Perfil;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -37,7 +38,18 @@ public class Cliente extends Pessoa{
         addPerfil(Perfil.CLIENTE);
     }
 
+    public Cliente(ClienteDTO objDto) {
+        this.id = objDto.getId();
+        this.nome = objDto.getNome();
+        this.email = objDto.getEmail();
+        this.senha = objDto.getSenha();
+        this.cpf = objDto.getCpf();
+        this.perfis.add(Perfil.CLIENTE.getCode());
+    }
+
     public Cliente() {
         addPerfil(Perfil.CLIENTE);
     }
+
+
 }
