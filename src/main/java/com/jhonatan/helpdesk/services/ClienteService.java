@@ -38,6 +38,14 @@ public class ClienteService {
         return clienteRepository.save(newObj);
     }
 
+    public Cliente update(Long id, ClienteDTO objDto){
+        objDto.setId(id);
+        Cliente newObj = findById(id);
+        newObj = new Cliente(objDto);
+        return clienteRepository.save(newObj);
+    }
+
+
     private void validaCPFEEmail(ClienteDTO objDto) {
         Optional<Pessoa> obj = pessoaRepository.findByCpf(objDto.getCpf());
         if(obj.isPresent() && obj.get().getId() != objDto.getId()){
