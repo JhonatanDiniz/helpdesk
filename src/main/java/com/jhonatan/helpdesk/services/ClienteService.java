@@ -45,6 +45,16 @@ public class ClienteService {
         return clienteRepository.save(newObj);
     }
 
+    public void deleteById(Long id){
+        Cliente obj = findById(id);
+
+        if(obj.getChamados().size() > 0){
+            throw new DataIntegrityViolationException("Clientes possui chamados e não pode ser excluído!");
+        }
+
+        clienteRepository.deleteById(id);
+    }
+
 
     private void validaCPFEEmail(ClienteDTO objDto) {
         Optional<Pessoa> obj = pessoaRepository.findByCpf(objDto.getCpf());
