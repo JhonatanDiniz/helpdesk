@@ -32,4 +32,11 @@ public class ChamadoResource {
         List<ChamadoDTO> listDto = list.stream().map(ChamadoDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }
+
+    @GetMapping(value = "cliente/{id}")
+    public ResponseEntity<List<ChamadoDTO>> findByCliente(@PathVariable Long id){
+        List<Chamado> list = chamadoService.findbyCliente(id);
+        List<ChamadoDTO> listDto = list.stream().map(ChamadoDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
+    }
 }
