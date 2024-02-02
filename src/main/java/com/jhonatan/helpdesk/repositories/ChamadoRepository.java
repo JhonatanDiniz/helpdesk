@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ChamadoRepository extends JpaRepository<Chamado, Long> {
     List<Chamado> findByClienteId(Long id);
+
+    List<Chamado> findByTecnicoId(Long id);
 }
