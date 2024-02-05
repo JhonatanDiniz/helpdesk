@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jhonatan.helpdesk.domain.enums.Prioridade;
 import com.jhonatan.helpdesk.domain.enums.Status;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
@@ -27,21 +28,27 @@ public class Chamado implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataEncerramento;
 
+    @NotNull(message = "O campo prioridade é requerido!")
     private Prioridade prioridade;
 
+    @NotNull(message = "O campo status é requerido!")
     private Status status;
 
     @Column(length = 100)
+    @NotNull(message = "O campo título é requerido!")
     private String titulo;
 
+    @NotNull(message = "O campo observações é requerido!")
     private String observacoes;
 
     @ManyToOne
     @JoinColumn(name = "tecnico_id")
+    @NotNull(message = "O técnico precisa ser informado!")
     private Tecnico tecnico;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @NotNull(message = "O cliente precisa ser informado!")
     private Cliente cliente;
 
     public Chamado(Long id, Prioridade prioridade, Status status, String titulo, String observacoes, Tecnico tecnico, Cliente cliente) {
